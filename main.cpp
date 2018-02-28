@@ -30,9 +30,17 @@ int seq_time(int *s, int *r, int *p, int *q, int n)
     return time;
 }
 
+class Task
+{
+int r,p,q,s;
 
+public:
+Task(int r,int p,int q,int s)
+{
 
+}
 
+};
 int main()
 {
     fstream file("/home/dominik/RPQ_spd1/dane.txt");
