@@ -30,54 +30,8 @@ int seq_time(int *s, int *r, int *p, int *q, int n)
     return time;
 }
 
-void sort(int *s, int *r, int *p, int *q, int n)
-{
-    int nseq[n];
-    for(int i=0;i<n;i++)
-        nseq[i]=i;
-    int it=0;
-
-    for(int i=0;i<n;i++)
-    {
-        for(int j=i;j<n-1;j++)
-        {
-       // if(s[j]!=n)
-            if(r[s[j+1]]<=p[s[j]] && q[s[j]]<=p[s[j+1]])
-            {
-                int v=s[j+1];
-                s[j+1]=s[j];
-                s[j]=v;
-               // nseq[s[i]]=it;
-                it++;
-            }
-//        if(s[i]==0)
-//            nseq
-        }
-
-    }
-    int *mrx=min_element(r,r+n);
-    int mr=0;
-    int *mqx=min_element(q,q+n);
-    int mq=0;
-    for(int i=0;i<n;i++)
-    {
-        if(r[s[i]] == *mrx )
-            mr=s[i];
-        cout<<r[s[i]] << " ";
-    }
-    cout << endl;
-//    int v=s[0];
-//    s[0]=s[mr];
-//    s[mr]=v;
-
-cout << *mrx << "nr of r:"<< mr << " " << *mqx << endl;
 
 
-    for(int i=0;i<n;i++)
-        cout << s[i]+1 << " ";
-    cout << endl;
-    cout << "production time:" << seq_time(s,r,p,q,n) <<endl;
-}
 
 int main()
 {
@@ -103,7 +57,7 @@ int main()
     file.close();
     for(int i=0;i<n;i++)
         cout << R[i] << " " << P[i] << " " << Q[i] << endl;
-    sort(seq,R,P,Q,n);
+
 
     cout << endl;
    // cout << "production time:" << seq_time(nseq,R,P,Q,n) <<endl;
