@@ -5,37 +5,35 @@
 using namespace std;
 
 
-
+// klasa implementująca model zadania maszynowego , s - nr w kolejce
 class Task
 {
 int r,p,q,s;
 
 public:
 Task(int R,int P,int Q,int S):r(R),p(P),q(Q),s(S) {}
+
 int & _r() {return r;}
 int & _p() {return p;}
 int & _q() {return q;}
 int & _s() {return s;}
-bool operator < (Task t)
-{
-    if(this->_p()<t._p())
-        return true;
-    return false;
-}
+
 };
+/*  funkcja pomocnicza dla sort, sortowanie rosnąco po r*/
 bool compare(Task a,Task b)
 {
     if(a._r()<b._r())
         return true;
     return false;
 }
+/*  funkcja pomocnicza dla sort, sortowanie malejąco po q*/
 bool compare_maxq(Task a,Task b)
 {
     if(a._q()>b._q())
         return true;
     return false;
 }
-
+/*  Liczenie Cmax  */
 int seq_time(vector<Task> v)
 {
     int x=0;
@@ -50,7 +48,7 @@ int seq_time(vector<Task> v)
 }
 int main()
 {
-    fstream file("/home/dominik/RPQ_spd1/dane.txt");
+    fstream file("dane.txt");
     string header;
     file >> header;
     int n;
@@ -79,16 +77,14 @@ int main()
         sort(tasks.begin(),tasks.end(),compare);
     Call+=seq_time(tasks);
     cout << endl;
-    cout << "after sort:"<< endl;
-    for(int i=0;i<n;i++)
-        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
-
     cout << endl << "kolejność:" << endl;
     for(int i=0;i<n;i++)
         cout << tasks[i]._s()+1 << " ";
 
     cout << endl;
     cout << "Cmax:"<<seq_time(tasks) << endl;
+
+    //druga sekwencja danych
     file >> header;
     file >> n;
     cout << header << endl;
@@ -111,15 +107,12 @@ int main()
         sort(tasks.begin(),tasks.end(),compare);
     Call+=seq_time(tasks);
     cout << endl;
-    cout << "after sort:"<< endl;
-    for(int i=0;i<n;i++)
-        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
-
     cout << endl << "kolejność:" << endl;
     for(int i=0;i<n;i++)
         cout << tasks[i]._s()+1 << " ";
     cout << endl;
     cout << "Cmax:"<<seq_time(tasks) << endl;
+    //3 sekwencja danych
     file >> header;
     file >> n;
     cout << header << endl;
@@ -142,15 +135,13 @@ int main()
         sort(tasks.begin(),tasks.end(),compare);
     Call+=seq_time(tasks);
     cout << endl;
-    cout << "after sort:"<< endl;
-    for(int i=0;i<n;i++)
-        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
 
     cout << endl << "kolejność:" << endl;
     for(int i=0;i<n;i++)
         cout << tasks[i]._s()+1 << " ";
     cout << endl;
     cout << "Cmax:"<<seq_time(tasks) << endl;
+    //4 seria danych
     file >> header;
     file >> n;
     cout << header << endl;
@@ -173,9 +164,6 @@ int main()
         sort(tasks.begin(),tasks.end(),compare);
     Call+=seq_time(tasks);
     cout << endl;
-    cout << "after sort:"<< endl;
-    for(int i=0;i<n;i++)
-        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
 
     cout << endl << "kolejność:" << endl;
     for(int i=0;i<n;i++)
