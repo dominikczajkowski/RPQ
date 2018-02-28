@@ -1,46 +1,53 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
-int seq_time(int *s, int *r, int *p, int *q, int n)
-{
-    int time=0;
-    for(int i=0; i<n;i++)
-    {
-        if(i==0)
-        {
-            time+=r[s[i]];
-            time+=p[s[i]];
-        }
-        if(i==(n-1)){
-            if(q[s[i-1]]<(q[s[i]]+p[s[i]]))
-                time+=q[s[i]];
-            else
-                time+=(q[s[i-1]]-(p[s[i]]+q[s[i]]));
-            time+=p[s[i]];
-        }
-        else
-        {
-            time+=p[s[i]];
 
-
-        }
-     }
-    return time;
-}
 
 class Task
 {
 int r,p,q,s;
 
 public:
-Task(int r,int p,int q,int s)
+Task(int R,int P,int Q,int S):r(R),p(P),q(Q),s(S) {}
+int & _r() {return r;}
+int & _p() {return p;}
+int & _q() {return q;}
+int & _s() {return s;}
+bool operator < (Task t)
 {
-
+    if(this->_p()<t._p())
+        return true;
+    return false;
+}
+};
+bool compare(Task a,Task b)
+{
+    if(a._r()<b._r())
+        return true;
+    return false;
+}
+bool compare_maxq(Task a,Task b)
+{
+    if(a._q()>b._q())
+        return true;
+    return false;
 }
 
-};
+int seq_time(vector<Task> v)
+{
+    int x=0;
+    int c=0;
+    for(int i=0;i<static_cast<int>(v.size());i++)
+    {
+        x=max(v[i]._r(),x)+v[i]._p();
+        c=max(c,(x+v[i]._q()));
+    }
+    return c;
+
+}
 int main()
 {
     fstream file("/home/dominik/RPQ_spd1/dane.txt");
@@ -50,31 +57,133 @@ int main()
     file >> n;
     cout << header << endl;
     cout << n << endl;
-    int *R = new int[n];
-    int *P = new int[n];
-    int *Q = new int[n];
-    int *seq = new int[n];
-  //  int *nseq;
-    for(int i=0;i<n;i++)
-        seq[i]=i;
+    vector <Task> tasks;
+    Task tmp(0,0,0,0);
+    int Call=0;
+
     for(int i=0;i<n;i++)
     {
-        file >> R[i] >> P[i] >> Q[i];
+        file >> tmp._r() >> tmp._p() >> tmp._q();
+        tmp._s()=i;
+        tasks.push_back(tmp);
     }
 
-    file.close();
     for(int i=0;i<n;i++)
-        cout << R[i] << " " << P[i] << " " << Q[i] << endl;
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
 
+    sort(tasks.begin(),tasks.end(),compare);
+    int t1 = seq_time(tasks);
+    sort(tasks.begin(),tasks.end(),compare_maxq);
+    int t2 = seq_time(tasks);
+    if(t2>t1)
+        sort(tasks.begin(),tasks.end(),compare);
+    Call+=seq_time(tasks);
+    cout << endl;
+    cout << "after sort:"<< endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    cout << endl << "kolejność:" << endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._s()+1 << " ";
 
     cout << endl;
-   // cout << "production time:" << seq_time(nseq,R,P,Q,n) <<endl;
+    cout << "Cmax:"<<seq_time(tasks) << endl;
+    file >> header;
+    file >> n;
+    cout << header << endl;
+    cout << n << endl;
+    tasks.clear();
+    for(int i=0;i<n;i++)
+    {
+        file >> tmp._r() >> tmp._p() >> tmp._q();
+        tmp._s()=i;
+        tasks.push_back(tmp);
+    }
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    sort(tasks.begin(),tasks.end(),compare);
+    t1 = seq_time(tasks);
+    sort(tasks.begin(),tasks.end(),compare_maxq);
+    t2 = seq_time(tasks);
+    if(t2>t1)
+        sort(tasks.begin(),tasks.end(),compare);
+    Call+=seq_time(tasks);
     cout << endl;
-    delete R;
-    delete P;
-    delete Q;
-    delete seq;
-   // delete nseq;
+    cout << "after sort:"<< endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    cout << endl << "kolejność:" << endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._s()+1 << " ";
+    cout << endl;
+    cout << "Cmax:"<<seq_time(tasks) << endl;
+    file >> header;
+    file >> n;
+    cout << header << endl;
+    cout << n << endl;
+    tasks.clear();
+    for(int i=0;i<n;i++)
+    {
+        file >> tmp._r() >> tmp._p() >> tmp._q();
+        tmp._s()=i;
+        tasks.push_back(tmp);
+    }
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    sort(tasks.begin(),tasks.end(),compare);
+    t1 = seq_time(tasks);
+    sort(tasks.begin(),tasks.end(),compare_maxq);
+    t2 = seq_time(tasks);
+    if(t2>t1)
+        sort(tasks.begin(),tasks.end(),compare);
+    Call+=seq_time(tasks);
+    cout << endl;
+    cout << "after sort:"<< endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    cout << endl << "kolejność:" << endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._s()+1 << " ";
+    cout << endl;
+    cout << "Cmax:"<<seq_time(tasks) << endl;
+    file >> header;
+    file >> n;
+    cout << header << endl;
+    cout << n << endl;
+    tasks.clear();
+    for(int i=0;i<n;i++)
+    {
+        file >> tmp._r() >> tmp._p() >> tmp._q();
+        tmp._s()=i;
+        tasks.push_back(tmp);
+    }
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    sort(tasks.begin(),tasks.end(),compare);
+    t1 = seq_time(tasks);
+    sort(tasks.begin(),tasks.end(),compare_maxq);
+    t2 = seq_time(tasks);
+    if(t2>t1)
+        sort(tasks.begin(),tasks.end(),compare);
+    Call+=seq_time(tasks);
+    cout << endl;
+    cout << "after sort:"<< endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._r() << " " << tasks[i]._p() << " " << tasks[i]._q() << endl;
+
+    cout << endl << "kolejność:" << endl;
+    for(int i=0;i<n;i++)
+        cout << tasks[i]._s()+1 << " ";
+    cout << endl;
+    cout << "Cmax:"<<seq_time(tasks) << endl;
+    cout << "Summary Cmax:" << Call << endl;
+    file.close();
     return 0;
 }
 
