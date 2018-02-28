@@ -48,7 +48,7 @@ int seq_time(vector<Task> v)
 }
 int main()
 {
-    fstream file("dane.txt");
+    fstream file("/home/dominik/RPQ_spd1/dane.txt");
     string header;
     file >> header;
     int n;
