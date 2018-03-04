@@ -16,12 +16,21 @@ int & _r() {return r;}
 int & _p() {return p;}
 int & _q() {return q;}
 int & _s() {return s;}
+<<<<<<< Updated upstream
 bool operator < (Task t)
 {
     if(this->_p()<t._p())
         return true;
     return false;
 }
+=======
+
+const int & _r() const {return r;}
+const int & _p() const {return p;}
+const int & _q() const {return q;}
+const int & _s() const {return s;}
+
+>>>>>>> Stashed changes
 };
 bool compare(Task a,Task b)
 {
@@ -50,6 +59,8 @@ int seq_time(vector<Task> v)
 }
 int main()
 {
+    const Task tsk(343,444,434,4);
+    cout << tsk._p();
     fstream file("/home/dominik/RPQ_spd1/dane.txt");
     string header;
     file >> header;
