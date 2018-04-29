@@ -64,13 +64,13 @@ public:
             return true;
         else
             return false;
-//        if(t1._r() == t2._r())
-//        {
-//            if(t1._s() < t2._s())
-//                return true;
-//            if(t1._s() > t2._s())
-//                return false;
-//        }
+        if(t1._r() == t2._r())
+        {
+            if(t1._s() < t2._s())
+                return true;
+            if(t1._s() > t2._s())
+                return false;
+        }
 
 
         return false;
@@ -85,21 +85,21 @@ public:
             return true;
         else
             return false;
-//        if(t1._q() == t2._q())
-//        {
-//            if(t1._s() < t2._s())
-//                return true;
-//            if(t1._s() > t2._s())
-//                return false;
-//        }
+        if(t1._q() == t2._q())
+        {
+            if(t1._s() < t2._s())
+                return true;
+            if(t1._s() > t2._s())
+                return false;
+        }
         return false;
     }
 };
 
 void Schrage(vector<Task> tasks, int n)
 {
-    int t = 0; int Cmax= 0; Task e;
-    vector<Task> pi;
+    int t = 0; int Cmax= 0;int k=0; Task e;
+    Task pi[10000];
     priority_queue<Task, vector<Task>, TaskCompareClassG> G;
     priority_queue<Task, vector<Task>, TaskCompareClassN> N;
     for(unsigned int i=0;i<tasks.size();i++)
@@ -121,7 +121,8 @@ void Schrage(vector<Task> tasks, int n)
         e=G.top();
         G.pop();
         t=t+e._p();
-        pi.push_back(e);
+        pi[k]=e;
+        k++;
 //        t+=e._p();
 //        Cmax=max(Cmax,t+e._q());
         t=max(e._r(),t)+e._p();
