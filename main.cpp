@@ -177,14 +177,13 @@ void prmtS(vector<Task> tasks)
 int main()
 {
 
-    fstream file("/home/dominik/RPQ_spd1/dane.txt");
+    fstream file("dane.txt");
     string header;
     regex ptt("data.*");
     int n;
 
     vector <Task> tasks;
     Task tmp;
-    vector <Task> ts;
 
 
     while(1)
