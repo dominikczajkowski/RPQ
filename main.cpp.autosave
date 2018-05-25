@@ -257,7 +257,8 @@ int Carlier(int UB, int LB, int n, Task *pi, Task *piOpt,int U,vector<Task> task
     int C = RefTask(A,B,pi);
     cout << "A:" << A << " B:"<<B<<" C:"<<C<<endl;
     if(C == -1)  cout << U;
-    for(int i = C+1;i<=B;i++)
+    for(int i = C+1;i<=B
+        ;i++)
     {
         tmp._r()=min(tmp._r(),pi[i]._r());
         tmp._p() += pi[i]._p();
